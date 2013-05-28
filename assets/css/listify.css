@@ -1,0 +1,50 @@
+/*.container {
+   margin-right: auto;
+   margin-left: auto;
+   max-width: 960px;
+}*/
+
+.logo h1 {   
+   font-size: 78px;
+   color: #333;
+}
+
+.lema {
+   color: #D30101;
+}
+
+.convert {
+}
+
+input[type="text"] {
+   margin-bottom: 0px !important;
+   font-size: 19px;
+}
+
+form {
+   margin: 0;
+}
+
+ul.toolbar > li {
+   float: left;
+   display: list-item;
+   list-style: none;
+   margin: 0 5px 10px 0;
+}
+
+/*.text-area, #result, .toolbar{
+   width: 85%;
+   margin: 0 auto;
+   margin-bottom: 8px;
+}*/
+.text-area {
+   margin-top: 10px;
+}
+
+#format {
+   margin: 0 auto;
+}
+
+.hero-unit {
+   padding: 10px !important;
+}  
