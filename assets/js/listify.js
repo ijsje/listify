@@ -8,7 +8,9 @@ $(function() {
              'spaces'   : $('#spaces').val(),
              'counter'  : $('#counter').val(),
           });
+       $('#result').empty();
        $('<pre>').text(result).appendTo('#result');
+       //$('#formatted-code').val(result);
    });
 
    var parse = function(args) {
@@ -63,7 +65,13 @@ $(function() {
 
    $('.toolbar .btn').click(function() {
       type = $(this).attr('value');
-   }); 
+   });
+
+   $('.useit').click(function() {
+      console.log($(this).prev().text());
+      $('#format').val($(this).prev().text());
+   });
+
 });
 
 

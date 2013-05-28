@@ -20,37 +20,38 @@
       <div class="container">
          <div class="row">
 
-            <br><br>
             <!-- Logo -->
             <div class="logo">
                <h1 class="text-center">
-                  List it <i class="icon-list"></i>  
+                  L<span class="listify">&lt;</span>i<span class="listify">&gt;</span>stify <i class="icon-list"></i>  
                </h1>
                <h4 class="lema text-center">Turn group of lines into HTML list</h4>
                <hr>
             </div>
 
-            <div class="span6">
+            <div class="span5 offset1">
                <h2>Examples</h2>
                <p>You can use the next format to customize the list</p>
-               <pre><code>li(class='clase', id='_#') &gt; span(class='small')</code></pre>
+               <pre><code>li(id='item_#', class='list') &gt; span(class='inner')</code><a class="useit btn btn-primary btn-mini pull-right">Apply</a></pre>
+               <pre><code>li(id='item')</code><a class="useit btn btn-primary btn-mini pull-right">Apply</a></pre>
+               <pre><code>li(id='_#') &gt; h1(class='text')</code><a class="useit btn btn-primary btn-mini pull-right">Apply</a></pre>
+               <pre><code>li(id='_#') &gt; a(href='http://www.google.com')</code><a class="useit btn btn-primary btn-mini pull-right">Apply</a></pre>
+               <p>If you want to add a numeric value just fill the <code>Counter</code> input</p>
             </div>
 
 
             <!-- Textarea -->
-            <div class="span6">
+            <div class="span5">
+               <h2>Input</h2>
                <div class="toolbar">
                   <form class="form-inline">
-                     <span>Format: </span>
-                     <input id="format" type="text" class="input-block-level" value="li(class='item', id='_#') &gt; span(class='inner-item')">
+                     <input id="format" type="text" class="input-block-level">
                   </form>
                </div>
 
-               <textarea id="text" placeholder="Your lines here ..." rows="12" class="text-area input-block-level">
-                  Hi
-                  this is
-                  Listify
-               </textarea>
+               <textarea id="text" placeholder="Your lines here ..." rows="12" class="text-area input-block-level">Hi
+this is
+Listify</textarea>
                <div class="toolbar">
                   <div class="btn-group" data-toggle="buttons-radio">
                      <a type="button" value="ul" id="ul" class="btn" title="Unordered List" href="javascript:;"><i class="icon-list-ul"></i></a>
@@ -69,11 +70,18 @@
          </div>
          <div class="row">
             <!-- Result -->
-            <div class="span12 text-centered">
-               <div class="highlight" id="result"></div>
+            <div class="span10 offset1">
+               <h1>Output</h1>
+               <div class="output highlight" id="result">
+                  <!--textarea placeholder="Your HTML list." style="width: 100%" rows="5" id="formatted-code"></textarea-->  
+               </div>
             </div>
          </div>
+         <div id="footer">
+    </div>
+
 
       </div>
+
    </body>
 </html>

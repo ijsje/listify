@@ -3,6 +3,58 @@
    margin-left: auto;
    max-width: 960px;
 }*/
+.container {
+  border: 1px #333 solid;
+border-top: 0px;
+border-bottom: 0px; 
+}
+/*width: auto;
+height: 100%;
+max-width: 1000px;
+min-width: 500px;*/
+/*max-width: 1000px;
+padding-bottom: 5em;
+padding: 50px;
+border: 1px #333 solid;
+border-top: 0px;
+border-bottom: 0px;*/
+
+.logo {
+   margin-top: 25px;
+}
+.listify {
+   font-size: 50px;
+   font-weight:100;
+}
+
+.border {
+   height: 3px;
+   background-color: #D30101;
+}
+
+pre code {
+   display: inline;
+}
+
+pre a {
+   font-family: 'Helvetica Neue', sans-serif;
+}
+
+#footer {
+margin-top: 60px;
+padding: 25px 0;
+border-top: 1px solid #E5DBD6;
+background-color: #F2ECE9;
+overflow: hidden;
+font-family: 'Maven Pro';
+font-weight: bold;
+}
+
+#footer #footer-wrapper {
+}
+
+.output {
+}
 
 .logo h1 {   
    font-size: 78px;
@@ -37,10 +89,6 @@ ul.toolbar > li {
    margin: 0 auto;
    margin-bottom: 8px;
 }*/
-.text-area {
-   margin-top: 10px;
-}
-
 #format {
    margin: 0 auto;
 }
@@ -48,3 +96,25 @@ ul.toolbar > li {
 .hero-unit {
    padding: 10px !important;
 }  
+
+
+#result pre, textarea, input[type="text"] {
+border: 1px solid #A7A7A7;
+background: #FFF;
+color: #6D757F;
+font: 400 16px/16px 'Helvetica Neue',sans-serif;
+margin: 0;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+box-shadow: 0 0 0 3px #E5EEFC;
+-webkit-box-shadow: 0 0 0 3px #E5EEFC;
+-moz-box-shadow: 0 0 0 3px #e5eefc;
+}
+
+.text-area {
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
+
