@@ -1,5 +1,6 @@
 $(function() {
-   var type   = 'ul';
+   var list_type = 'ul';
+   var spaces = 4;
    var default_counter = 0;
    $('#convert').click(function() {
           result = parse({
@@ -21,16 +22,49 @@ $(function() {
           format   = args.format || '',
           counter  = parseInt(args.counter, 10);
 
-      if (format != '') {
+      if (format) {
          elements = format.split('>');
       }
-      console.log(elements);
-      result = '<' + type + '>\n';
-      for (var k = 0, lines_length = lines.length; k < lines_length; k++) {
-         result += '   ';
-         for (var i = 0, length = elements.length; i < length; i++) {
-            tags.push(elements[i].split('(')[0].trim());
-            var attrs = elements[i].split('(')[1].trim().replace(/'/g, '"').replace(/,/g, '').replace(/\)/g, '');
+
+      // Open the list
+      result = '<' + list_type + '>\n';
+
+      lines.forEach(function(line) {
+         result += new Array(spaces + 1).join(' ');
+         elements.forEach(function(element) {
+            var attrs = element.split('(');
+            var tag = attrs[0].trim();
+            tags.push(tag);
+            result += '<' + tag + ' ';
+            var identifiers = attrs[1].split(',');
+            console.log(identifiers);
+            identifiers.forEach(function(identifier) {
+               result += identifier.replace(')', '').replace(/'/g, '"').trim() + ' ';
+            });
+            result += '>';
+         });
+         
+         // No format, just <li>
+         if (!format) { result += '<li>'; }
+         result += line;
+         if (!format) { result += '</li>'; }
+
+         // Close tags
+         while (tags.length > 0) { result += '</' + tags.pop() + '>'; }
+
+         result += '\n';
+      });
+
+      // Close the list
+      result += '</' + list_type + '>';
+
+      return result;
+   }
+
+
+/*
+            tags.push(_attr);
+            var attrs = element.split('(')[1].trim().replace(/'/g, '"').replace(/,/g, '').replace(/\)/g, '');
             console.log(attrs);
             var moreattrs = attrs.split('=')[0];
             var values = attrs.split('=')[1];
@@ -45,26 +79,26 @@ $(function() {
             //result += (attrs == '') ? attrs : ' ' + attrs;
             result += newattrs;
             result += '>';
-         }
+         });
          if (!elements.length) {
-            result += '<li>' + lines[k].trim() + '</li>';
+            result += '<li>' + line.trim() + '</li>';
          } else {
-            result += lines[k].trim();
+            result += line.trim();
          }
          for (var i = 0, length = tags.length; i < length; i++) {
             result += '</' + tags.pop() + '>';
          }         
          result += '\n';
          if (counter != '') counter += 1;
-      }
-      result += '</' + type + '>';
+      });*/
+      //result += '</' + list_type + '>';
 
-
+/*
       return result;
-   };
+   };*/
 
    $('.toolbar .btn').click(function() {
-      type = $(this).attr('value');
+      list_type = $(this).attr('value');
    });
 
    $('.useit').click(function() {
