@@ -1,111 +1,111 @@
 $(function() {
-   var list_type = 'ul';
-   var spaces = 4;
-   var default_counter = 0;
    $('#convert').click(function() {
           result = parse({
              'lines'    : $('#text').val().trim().split('\n'),
              'format'   : $('#format').val(),
-             'spaces'   : $('#spaces').val(),
-             'counter'  : $('#counter').val(),
+             'spaces'   : parseInt($('#spaces').val(), 10),
+             'counter'  : parseInt($('#counter').val(), 10),
+             'listType' : $('input[name=listtype]:checked').val(),
+             'ignore'   : $('#ignore').is(':checked'),
+             'pretty'   : $('#pretty').is(':checked'),
           });
        $('#result').empty();
        $('<pre>').text(result).appendTo('#result');
-       //$('#formatted-code').val(result);
+       return false;
    });
 
    var parse = function(args) {
       var tags     = [],
           elements = [],
-          result   = '',
           lines    = args.lines,
-          format   = args.format || '',
-          counter  = parseInt(args.counter, 10);
+          listType = args.listType || 'ul',
+          format   = args.format   || '',
+          spaces   = args.spaces   || 4,
+          counter  = args.counter  || 0,
+          ignore   = args.ignore   || false,
+          pretty   = args.pretty   || false,
+          result   = '';
 
       if (format) {
          elements = format.split('>');
       }
 
       // Open the list
-      result = '<' + list_type + '>\n';
+      result = '<' + listType + '>\n';
+
+      // Skip blank lines
+      lines = lines.map(function(line) {
+         if (line.length > 0) {
+            return line.trim();
+         }
+      });
+
+      // Ignore first digits
+      if (ignore) {
+         lines = lines.map(function(line) {
+            return line.replace(/^\d+\s*[-\\.)]?\s+/, ''); 
+         });
+      }
 
       lines.forEach(function(line) {
          result += new Array(spaces + 1).join(' ');
-         elements.forEach(function(element) {
+         elements.forEach(function(element, index) {
             var attrs = element.split('(');
-            var tag = attrs[0].trim();
+            var tag   = attrs[0].trim();
             tags.push(tag);
             result += '<' + tag + ' ';
             var identifiers = attrs[1].split(',');
-            console.log(identifiers);
             identifiers.forEach(function(identifier) {
+               if (counter) {
+                  identifier = identifier.replace('#', counter);
+               }
                result += identifier.replace(')', '').replace(/'/g, '"').trim() + ' ';
             });
             result += '>';
+            if (pretty) {
+               if (index < elements.length - 1) {
+                  result += "\n" + new Array(spaces * (index + 2) + 1).join(' ');
+               }
+            }
          });
          
          // No format, just <li>
-         if (!format) { result += '<li>'; }
+         if (!format) { 
+            result += '<li>'; 
+         }
+
          result += line;
-         if (!format) { result += '</li>'; }
+         
+         if (!format) { 
+            result += '</li>'; 
+         }
+
+         if (counter) { 
+            counter++; 
+         }
 
          // Close tags
-         while (tags.length > 0) { result += '</' + tags.pop() + '>'; }
-
+         var deep = tags.length;
+         while (tags.length > 0) {
+            result += '</' + tags.pop() + '>';
+            if (pretty) {
+               result += "\n" + new Array(spaces * (deep - 1) + 1).join(' ');
+               deep--;
+            }
+         }
          result += '\n';
       });
 
       // Close the list
-      result += '</' + list_type + '>';
+      result += '</' + listType + '>';
+
+      // Prettyfy
+      result = result.replace(/ >/g, '>');
 
       return result;
    }
-
-
-/*
-            tags.push(_attr);
-            var attrs = element.split('(')[1].trim().replace(/'/g, '"').replace(/,/g, '').replace(/\)/g, '');
-            console.log(attrs);
-            var moreattrs = attrs.split('=')[0];
-            var values = attrs.split('=')[1];
-            var newattrs = '';
-            if (moreattrs == 'id') {
-               if (isNaN(counter)) counter = '';
-               newattrs = ' ' + moreattrs + '=' + values.substring(0, values.length - 1)  + counter + '"';
-            } else {
-               newattrs = (attrs == '') ? attrs : ' ' + attrs;
-            }
-            result += '<' + tags[i];
-            //result += (attrs == '') ? attrs : ' ' + attrs;
-            result += newattrs;
-            result += '>';
-         });
-         if (!elements.length) {
-            result += '<li>' + line.trim() + '</li>';
-         } else {
-            result += line.trim();
-         }
-         for (var i = 0, length = tags.length; i < length; i++) {
-            result += '</' + tags.pop() + '>';
-         }         
-         result += '\n';
-         if (counter != '') counter += 1;
-      });*/
-      //result += '</' + list_type + '>';
-
-/*
-      return result;
-   };*/
-
-   $('.toolbar .btn').click(function() {
-      list_type = $(this).attr('value');
+   
+   $('.examples a').click(function() {
+      $('#format').val($(this).attr('data-code'));
    });
-
-   $('.useit').click(function() {
-      console.log($(this).prev().text());
-      $('#format').val($(this).prev().text());
-   });
-
 });
-
-
