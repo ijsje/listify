@@ -100,7 +100,7 @@ $(function() {
       result += '</' + listType + '>';
 
       // Prettyfy
-      result = result.replace(/ >/g, '>');
+      result = result.replace(/\s*>/g, '>');
 
       return result;
    }
