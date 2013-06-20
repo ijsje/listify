@@ -21,7 +21,7 @@ $(function() {
           listType = args.listType || 'ul',
           format   = args.format   || '',
           spaces   = args.spaces   || 4,
-          counter  = args.counter  || false,
+          counter  = (isNan(args.counter) ? false : args.counter), // fundamentally, I don't like this numerical/boolean flop
           ignore   = args.ignore   || false,
           pretty   = args.pretty   || false,
           result   = '';
