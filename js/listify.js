@@ -7,7 +7,7 @@ $(function() {
              'counter'  : parseInt($('#counter').val(), 10),
              'listType' : $('input[name=listtype]:checked').val(),
              'ignore'   : $('#ignore').is(':checked'),
-             'pretty'   : $('#pretty').is(':checked'),
+             'pretty'   : $('#pretty').is(':checked')
           });
        $('#result').empty();
        $('<pre>').text(result).appendTo('#result');
@@ -21,7 +21,7 @@ $(function() {
           listType = args.listType || 'ul',
           format   = args.format   || '',
           spaces   = args.spaces   || 4,
-          counter  = args.counter  || 0,
+          counter  = args.counter  || false,
           ignore   = args.ignore   || false,
           pretty   = args.pretty   || false,
           result   = '';
@@ -56,7 +56,7 @@ $(function() {
             result += '<' + tag + ' ';
             var identifiers = attrs[1].split(',');
             identifiers.forEach(function(identifier) {
-               if (counter) {
+               if (counter !== false) {
                   identifier = identifier.replace('#', counter);
                }
                result += identifier.replace(')', '').replace(/'/g, '"').trim() + ' ';
@@ -80,7 +80,7 @@ $(function() {
             result += '</li>'; 
          }
 
-         if (counter) { 
+         if (counter !== false) { 
             counter++; 
          }
 
