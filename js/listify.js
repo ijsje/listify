@@ -1,6 +1,6 @@
 $(function() {
    $('#convert').click(function() {
-          result = parse({
+          var result = parse({
              'lines'    : $('#text').val().trim().split('\n'),
              'format'   : $('#format').val(),
              'spaces'   : parseInt($('#spaces').val(), 10),
@@ -21,7 +21,8 @@ $(function() {
           listType = args.listType || 'ul',
           format   = args.format   || '',
           spaces   = args.spaces   || 4,
-          counter  = (isNaN(args.counter) ? false : args.counter), // fundamentally, I don't like this numerical/boolean flop
+          counter  = (args.counter >= 0 ? args.counter : 0), 
+          useCounter = !isNaN(args.counter),
           ignore   = args.ignore   || false,
           pretty   = args.pretty   || false,
           result   = '';
@@ -56,7 +57,7 @@ $(function() {
             result += '<' + tag + ' ';
             var identifiers = attrs[1].split(',');
             identifiers.forEach(function(identifier) {
-               if (counter !== false) {
+               if (useCounter) {
                   identifier = identifier.replace('#', counter);
                }
                result += identifier.replace(')', '').replace(/'/g, '"').trim() + ' ';
@@ -80,7 +81,7 @@ $(function() {
             result += '</li>'; 
          }
 
-         if (counter !== false) { 
+         if (useCounter) { 
             counter++; 
          }
 
@@ -103,7 +104,7 @@ $(function() {
       result = result.replace(/\s*>/g, '>');
 
       return result;
-   }
+   };
    
    $('.examples a').click(function() {
       $('#format').val($(this).attr('data-code'));
